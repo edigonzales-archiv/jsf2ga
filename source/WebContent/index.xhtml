@@ -4,37 +4,26 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:leaf="http://java.sun.com/jsf/composite/jsf2leaf">
+	xmlns:leaf="http://java.sun.com/jsf/composite/jsf2leaf"
+	xmlns:ga="http://java.sun.com/jsf/composite/jsf2ga">
+<h:head>
 
+</h:head>
 <h:body>
 	<div align="center">
 		<h2>JSF2Leaf - Component Test Page</h2>
 
 		<table>
 			<tr>
-				<th>Basic Map <leaf:map center="42.120000,-72.540000" />
-				</th>
+			
+				<td>map.geo.admin.ch <ga:map center="607500,228500" resolution="10" />
+				</td>
+				
 
-				<th>Full Parameters Map <leaf:map center="42.120000,-72.540000"
-						marker="42.120000,-72.540000"
-						popupMsg="Krusty Burger&lt;br&gt; Phone: 555-5555"
-						zoomGlobal="false" zoom="12" width="300px" height="200px"
-						maxZoom="19" minZoom="1" dragging="false" zoomControl="false"
-						attribution="JSF2Leaf" />
-				</th>
-                            
-				<th>Map with customized urlTemplate for offline<leaf:map center="47.084461, 2.400046"
-						marker="47.084461, 2.400046"
-						popupMsg="The center of France"
-						zoomGlobal="true" zoom="12" width="300px" height="200px"
-                                                urlTemplate="http://tile.stamen.com/toner/{z}/{x}/{y}.png"
-                                                attribution="JSF2Leaf" />
-				</th>
+
 			</tr>
 		</table>
 		
-		<b>Advanced Map</b>
-		<leaf:mapAdvanced map="#{testBean.springfieldMap}" />
 
 	</div>
 </h:body>

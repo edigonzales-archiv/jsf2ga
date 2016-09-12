@@ -23,11 +23,12 @@ GNU General Public License for more details.
 
 <composite:interface>
 	<composite:attribute name="center" required="true" type="java.lang.String" />
+	<composite:attribute name="resolution" default="650" type="java.lang.Integer" />
 	<composite:attribute name="marker" type="java.lang.String" />
 	<composite:attribute name="popupMsg" type="java.lang.String" />
-	<composite:attribute name="zoom"  default="10" type="java.lang.String" />
-	<composite:attribute name="width" default="300px" type="java.lang.String" />
-	<composite:attribute name="height" default="200px" type="java.lang.String" />
+	<composite:attribute name="zoom"  default="3" type="java.lang.String" />
+	<composite:attribute name="width" default="800px" type="java.lang.String" />
+	<composite:attribute name="height" default="600px" type="java.lang.String" />
 	<composite:attribute name="minZoom" default="1" type="java.lang.String" />
 	<composite:attribute name="maxZoom" default="19" type="java.lang.String" />
 	<composite:attribute name="dragging" default="true" type="java.lang.Boolean" />
@@ -43,48 +44,24 @@ GNU General Public License for more details.
 
 <composite:implementation>
 
-	<head>
-		<link rel="stylesheet" href="#{resource['css:leaflet.css']}" />
-		<script src="#{resource['js:leaflet.js']}"></script>
-                
-		<link rel="stylesheet" href="#{resource['css:Control.MiniMap.min.css']}" />
-		<script src="#{resource['js:Control.MiniMap.min.js']}"></script>
-	</head>
-
+	<h:outputScript name="js/loader.js?lang=en" target="head" />
+	
 	<div id="#{cc.attrs.id}" style="width:#{cc.attrs.width}; height:#{cc.attrs.height}"/>
 	
 	<script>
-		var #{cc.attrs.id}_map = L.map('#{cc.attrs.id}', {center: [#{cc.attrs.center}], zoom: #{cc.attrs.zoom}, layers: L.tileLayer('#{cc.attrs.urlTemplate}', {id: 'osm', attribution: '#{cc.attrs.attribution}', maxZoom: #{cc.attrs.maxZoom}, minZoom: #{cc.attrs.minZoom}}), dragging:#{cc.attrs.dragging}, zoomControl:#{cc.attrs.zoomControl} });
-		
-		if('#{cc.attrs.marker}')
-		{
-			var #{cc.attrs.id}_marker = L.marker([#{cc.attrs.marker}],{icon: new L.Icon({iconSize: [25, 41], iconAnchor: [25, 41], popupAnchor: [-12, -45], iconUrl: '#{resource['images:marker-icon.png']}', shadowUrl: '#{resource['images:marker-shadow.png']}'})}).addTo(#{cc.attrs.id}_map);
-		
-			if('#{cc.attrs.popupMsg}')
-				#{cc.attrs.id}_marker.bindPopup('#{cc.attrs.popupMsg}');
-		}
-		
-		if(!#{cc.attrs.zoomGlobal})
-		{
-			#{cc.attrs.id}_map.touchZoom.disable();
-			#{cc.attrs.id}_map.doubleClickZoom.disable();
-			#{cc.attrs.id}_map.scrollWheelZoom.disable();
-			#{cc.attrs.id}_map.boxZoom.disable();
-			#{cc.attrs.id}_map.keyboard.disable();
-		}
-                
-		if(#{cc.attrs.miniMap})
-		{
-			new L.Control.MiniMap(L.tileLayer('#{cc.attrs.urlTemplate}', {}), {
-				toggleDisplay: true,
-				zoomAnimation: true,
-				position: '#{cc.attrs.miniMapPosition}',
-				width: #{cc.attrs.miniMapWidth},
-				height: #{cc.attrs.miniMapHeight}
-			}).addTo(#{cc.attrs.id}_map);
-                }
-                    
+		var layer = ga.layer.create('ch.swisstopo.pixelkarte-grau');	
+		var map = new ga.Map({
+	        target: '#{cc.attrs.id}',
+	        layers: [layer],
+	        view: new ol.View({
+	          resolution: #{cc.attrs.resolution},
+	          center: [#{cc.attrs.center}]
+	        })
+	      });
+	
+		                    
 	</script>
+
 
 </composite:implementation>
 
