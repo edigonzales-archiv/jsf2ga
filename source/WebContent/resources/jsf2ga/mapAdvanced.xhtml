@@ -1,0 +1,72 @@
+<!--
+A JSF2 ol3 wrapper component.
+Copyright (C) 2016 Stefan Ziegler
+
+Based on jsf2leaf.
+Copyright (C) 2015 Leonardo Ciocari
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details. 
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface componentType="mapAdvanced">
+	<composite:attribute name="map" type="java.lang.Object" />
+</composite:interface>
+
+<composite:implementation>
+
+	<h:outputScript name="js/ol.js" target="head" />
+
+	<div id="#{cc.attrs.id}" style="width:#{cc.mapObject.width}; height:#{cc.mapObject.height}"/>
+
+	<script type="text/javascript">
+
+		var projection = new ol.proj.Projection({
+			code: '#{cc.mapObject.projection.code}',
+			extent: #{cc.mapObject.projection.extent},
+			units: '#{cc.mapObject.projection.units}'
+		});
+		
+		
+		var gLayer = new ol.layer.Group();
+		
+		<ui:repeat value="#{cc.mapObject.group.layers}" var="layer">
+			var layer = new ol.layer.Tile();
+			
+			if(#{layer.maxResolution} != 0) {
+				layer.setMaxResolution(#{layer.maxResolution});
+			}
+				
+			if(#{layer.minResolution} != 0) {
+				layer.setMinResolution(#{layer.minResolution});
+			}
+			
+		
+		
+		
+			console.log("hallo");
+		</ui:repeat>
+		
+			
+
+	</script>
+	
+</composite:implementation>
+
+</html>

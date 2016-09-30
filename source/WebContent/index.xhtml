@@ -4,7 +4,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:leaf="http://java.sun.com/jsf/composite/jsf2leaf"
 	xmlns:ga="http://java.sun.com/jsf/composite/jsf2ga">
 <h:head>
 
@@ -16,14 +15,17 @@
 		<table>
 			<tr>
 			
-				<td>map.geo.admin.ch <ga:map center="607500,228500" resolution="10" />
-				</td>
+				<td>map.geo.admin.ch
+					<!--  <ga:map center="607500,228500" resolution="10" /> -->
+				</td> 
 				
 
 
 			</tr>
 		</table>
 		
+		<b>Advanced Map</b>
+		<ga:mapAdvanced map="#{gaBean.springfieldMap}" />
 
 	</div>
 </h:body>

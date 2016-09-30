@@ -19,7 +19,7 @@ import javax.faces.component.UINamingContainer;
 
 import com.jsf2leaf.model.Map;
 
-@FacesComponent("mapAdvanced") 
+@FacesComponent("mapAdvancedLeaf") 
 public class MapAdvanced extends UINamingContainer {
  
 	private transient Map mapObject;
